@@ -68,7 +68,7 @@ public class Trades {
 
                 for (int i = startIndex; i < x.getLength(); i++) {
                     Trade t = x.get(i);
-                    if (t.getTs() > candleTime + candlePeriod) {
+                    if (t.getTs() >= candleTime + candlePeriod) {
                         result.add(new Candle(t.getTicker(), candlePeriod, first.getPrice(),
                                 last.getPrice(), high, low, candleTime, volume));
                         volume = 0;
@@ -83,11 +83,10 @@ public class Trades {
                         high = t.getPrice();
                     if (t.getPrice() < low)
                         low = t.getPrice();
-                    if (i == x.getLength() - 1) {
-                        result.add(new Candle(t.getTicker(), candlePeriod, first.getPrice(),
-                                last.getPrice(), high, low, candleTime, volume));
-                    }
                 }
+                result.add(new Candle(last.getTicker(), candlePeriod, first.getPrice(),
+                        last.getPrice(), high, low, candleTime, volume));
+
             });
         }
         return result;
