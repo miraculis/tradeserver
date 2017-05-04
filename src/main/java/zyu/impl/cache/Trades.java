@@ -76,6 +76,7 @@ public class Trades {
                         last = first;
                         high = Double.MIN_VALUE;
                         low = Double.MAX_VALUE;
+                        candleTime = candleTime + candlePeriod;
                     }
                     volume += t.getVolume();
                     last = t;
